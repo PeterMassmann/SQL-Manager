@@ -71,7 +71,8 @@ public class SQLManager {
         } else if (object instanceof JSONParsable) {
             JSONParsable parsable = (JSONParsable) object;
             return parsable.getJSON(insideJSON);
-        } else if (object instanceof UUID uuid) {
+        } else if (object instanceof UUID) {
+            UUID uuid = (UUID) object;
             if (insideJSON) {
                 return "\"" + uuid + "\"";
             }
