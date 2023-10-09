@@ -21,3 +21,15 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+publishing {
+    publications {
+        register("mavenJava", MavenPublication::class) {
+            groupId = "com.github.PeterMassmann"
+            artifactId = "SQL-Manager"
+            version = "1.0"
+
+            from(components["java"])
+        }
+    }
+}
