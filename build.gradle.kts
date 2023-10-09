@@ -3,7 +3,7 @@ plugins {
     id("maven-publish")
 }
 
-group = "com.petermassmann"
+group = "com.github.PeterMassmann"
 version = "1.0"
 
 repositories {
