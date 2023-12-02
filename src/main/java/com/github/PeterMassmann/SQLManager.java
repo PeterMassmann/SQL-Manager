@@ -27,7 +27,7 @@ public class SQLManager {
             String url,
             String user,
             String password
-    ) {
+    ) throws SQLException {
         ds.setUrl(url);
         ds.setUsername(user);
         ds.setPassword(password);

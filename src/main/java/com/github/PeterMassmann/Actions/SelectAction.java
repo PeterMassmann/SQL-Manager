@@ -7,6 +7,7 @@ import com.github.PeterMassmann.Order.SQLOrderSet;
 import com.github.PeterMassmann.SQLManager;
 import org.jetbrains.annotations.Nullable;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -107,7 +108,9 @@ public class SelectAction {
 
         query.append(additionalText);
         try {
-            return manager.getConnection().createStatement().executeQuery(query.toString());
+            try (Connection connection = manager.getConnection()) {
+                return connection.createStatement().executeQuery(query.toString());
+            }
         } catch (SQLException e) {
             throw new SQLException(query.toString());
         }
