@@ -2,6 +2,7 @@ package com.github.PeterMassmann;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SQLResult implements AutoCloseable {
@@ -22,7 +23,7 @@ public class SQLResult implements AutoCloseable {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() throws SQLException {
         this.set.close();
         this.statement.close();
         this.connection.close();
