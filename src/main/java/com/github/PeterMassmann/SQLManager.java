@@ -32,7 +32,7 @@ public class SQLManager {
         ds.setUsername(user);
         ds.setPassword(password);
         ds.setMinIdle(5);
-        ds.setMaxIdle(10);
+        ds.setMaxIdle(25);
         ds.setMaxOpenPreparedStatements(100);
     }
 

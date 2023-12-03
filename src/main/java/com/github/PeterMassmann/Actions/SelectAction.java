@@ -5,11 +5,13 @@ import com.github.PeterMassmann.Conditions.SQLConditionSet;
 import com.github.PeterMassmann.Columns.SQLColumnSet;
 import com.github.PeterMassmann.Order.SQLOrderSet;
 import com.github.PeterMassmann.SQLManager;
+import com.github.PeterMassmann.SQLResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * An action to retrieve all rows matching a set of conditions and other parameters.
@@ -92,10 +94,10 @@ public class SelectAction {
 
     /**
      * Retrieve all rows in the table that meet all conditions.
-     * @return A {@link ResultSet} containing all retrieved rows.
+     * @return A {@link SQLResult} containing all retrieved rows.
      * @throws SQLException Thrown if an exception regarding the execution of the query is encountered.
      */
-    public ResultSet retrieve() throws SQLException {
+    public SQLResult retrieve() throws SQLException {
         StringBuilder query = new StringBuilder("SELECT ");
         query.append(columns.getString()).append(" FROM ").append(tableName);
         if (!conditions.isEmpty()) {
@@ -108,9 +110,10 @@ public class SelectAction {
 
         query.append(additionalText);
         try {
-            try (Connection connection = manager.getConnection()) {
-                return connection.createStatement().executeQuery(query.toString());
-            }
+            Connection connection = manager.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet set = statement.executeQuery(query.toString());
+            return new SQLResult(connection, statement, set);
         } catch (SQLException e) {
             throw new SQLException(query.toString());
         }
