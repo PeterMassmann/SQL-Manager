@@ -4,6 +4,8 @@ import com.github.PeterMassmann.Conditions.SQLCondition;
 import com.github.PeterMassmann.Conditions.SQLConditionSet;
 import com.github.PeterMassmann.SQLManager;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
@@ -47,6 +49,10 @@ public class DeleteAction {
 
         String query = "DELETE FROM " + tableName + " WHERE " + conditions.getConditionSetString(manager);
 
-        manager.getConnection().prepareStatement(query).executeUpdate();
+        Connection connection = manager.getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.execute();
+        statement.close();
+        connection.close();
     }
 }

@@ -6,6 +6,8 @@ import com.github.PeterMassmann.SQLManager;
 import com.github.PeterMassmann.Values.SQLValue;
 import com.github.PeterMassmann.Values.SQLValuesSet;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
@@ -72,7 +74,11 @@ public class UpdateAction {
         }
 
         query.append(" WHERE ").append(conditions.getConditionSetString(manager));
-        manager.getConnection().prepareStatement(query.toString()).executeUpdate();
+        Connection connection = manager.getConnection();
+        PreparedStatement statement = connection.prepareStatement(query.toString());
+        statement.execute();
+        statement.close();
+        connection.close();
     }
 
 }

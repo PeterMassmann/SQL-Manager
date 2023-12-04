@@ -4,6 +4,8 @@ import com.github.PeterMassmann.SQLManager;
 import com.github.PeterMassmann.Values.SQLValue;
 import com.github.PeterMassmann.Values.SQLValuesSet;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +55,11 @@ public class InsertAction {
 
         query.append("(").append(String.join(",", columns)).append(")");
         query.append(" VALUES ").append("(").append(String.join(",", values)).append(")");
-        manager.getConnection().prepareStatement(query.toString()).executeUpdate();
+
+        Connection connection = manager.getConnection();
+        PreparedStatement statement = connection.prepareStatement(query.toString());
+        statement.execute();
+        statement.close();
+        connection.close();
     }
 }
