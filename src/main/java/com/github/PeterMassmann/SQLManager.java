@@ -70,7 +70,7 @@ public class SQLManager {
             return parser.parse(object, insideJSON);
         } else if (object instanceof JSONParsable) {
             JSONParsable parsable = (JSONParsable) object;
-            return parsable.getJSON(insideJSON);
+            return parsable.getJSON(this, insideJSON);
         } else if (object instanceof UUID) {
             UUID uuid = (UUID) object;
             if (insideJSON) {

@@ -10,8 +10,8 @@ public interface JSONParsable {
     /**
      *
      * @param insideJSON Whether the object is inside a JSON object or not.
-     * @return The {@link String} representation of this object, either in JSOn format or SQL format.
+     * @return The {@link String} representation of this object, either in JSON format or SQL format.
      */
-    String getJSON(boolean insideJSON);
+    String getJSON(SQLManager manager, boolean insideJSON);
 
 }
